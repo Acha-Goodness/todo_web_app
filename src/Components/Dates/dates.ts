@@ -1,0 +1,52 @@
+interface scheduleDates{
+    id?:number,
+    day?:string
+}
+
+export const dates : Array< scheduleDates> = [
+    {
+        id:1,
+        day:"Mon"
+    },
+    {
+        id:2,
+        day:"Tue"
+    },
+    {
+        id:3,
+        day:"Wed"
+    },
+    {
+        id:4,
+        day:"Thur"
+    },
+    {
+        id:5,
+        day:"Fri"
+    },
+    {
+        id:6,
+        day:"Sat"
+    },
+    {
+        id:7,
+        day:"Sun"
+    },
+    {
+        id:8,
+        day:"Mon"
+    },
+    {
+        id:9,
+        day:"Tue"
+    },
+    {
+        id:10,
+        day:"Wed"
+    },
+    {
+        id:11,
+        day:"Thur"
+    },
+    
+]
