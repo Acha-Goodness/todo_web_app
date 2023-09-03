@@ -3,7 +3,7 @@ interface scheduleDates{
     day?:string
 }
 
-export const dates : Array< scheduleDates> = [
+export const dates : Array<scheduleDates> = [
     {
         id:1,
         day:"Mon"
