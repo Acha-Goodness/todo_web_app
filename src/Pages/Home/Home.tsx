@@ -24,15 +24,25 @@ const Home = () => {
 
   const closeAddTask = () => {
     setShowAddTask(false);
+    setEditTask(false);
+    setWireFrame(false);
   }
 
   const displayEditTask = () => {
     setEditTask(true);
   }
 
+  const closeEditTask = () => {
+    setEditTask(false);
+  }
+
   const displayWireFrame = () => {
     setWireFrame(true);
     setShowAddTask(false)
+  }
+
+  const closeWireFrame = () => {
+    setWireFrame(false);
   }
 
 
@@ -60,11 +70,11 @@ const Home = () => {
                   )
               } else if (showEditTask) {
                   return (
-                    <EditTask/>
+                    <EditTask closeEditTask={closeEditTask}/>
                   )
               } else if(showWireFrame) {
                   return (
-                    <WireFrame displayEditTask={displayEditTask}/>
+                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame}/>
                   )
               } else {
                 return (

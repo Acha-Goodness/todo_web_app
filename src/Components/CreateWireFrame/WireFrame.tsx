@@ -4,13 +4,14 @@ import { BsClock } from "react-icons/bs";
 
 interface ButtonProps{
     displayEditTask: () => void;
+    closeWireFrame: () => void;
 }
 
-const WireFrame = ({displayEditTask} : ButtonProps) => {
+const WireFrame = ({displayEditTask, closeWireFrame} : ButtonProps) => {
   return (
     <div className='shadow-md p-5'>
         <div className='flex justify-end'>
-            <MdClose/>
+            <MdClose onClick={closeWireFrame}/>
         </div>
         <div>
             <h1 className='font-[700] text-[18px] py-3'>Create Wireframe</h1>
