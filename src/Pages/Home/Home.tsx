@@ -22,6 +22,10 @@ const Home = () => {
     setShowAddTask(true);
   }
 
+  const closeAddTask = () => {
+    setShowAddTask(false);
+  }
+
   const displayEditTask = () => {
     setEditTask(true);
   }
@@ -52,7 +56,7 @@ const Home = () => {
             {(() => {
               if (showAddTask) {
                   return (
-                    <AddTask/>
+                    <AddTask closeAddTask={closeAddTask}/>
                   )
               } else if (showEditTask) {
                   return (
