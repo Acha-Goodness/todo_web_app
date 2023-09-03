@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { todo } from "../../Data/TodoData"; 
 import Pagination from '../Pagination/Pagination';
 
-function MyTask() {
+interface ButtonsProps{
+    displayWireFrame: () => void
+  }
+
+function MyTask({displayWireFrame}: ButtonsProps) {
   const [ currentPage, setCurrentPage ] = useState(1)
   const recordsPerPage : number = 5;
   const lastIndex : number = currentPage * recordsPerPage;
@@ -10,6 +14,7 @@ function MyTask() {
   const records = todo.slice(firstIndex, lastIndex);
   const nPage : number = Math.ceil(todo.length / recordsPerPage);
   const numbers : Array<number> = [...Array(nPage + 1).keys()].slice(1);
+
 
 
   const prePage = () => {
@@ -35,7 +40,7 @@ function MyTask() {
         {
             records.map((item, index) => {
                 return(
-                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7'>
+                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7' onClick={displayWireFrame}>
                         <div className='flex w-[32%] items-center'>
                         <input type="checkbox"/>
                         <div className='ml-[5%]'>

@@ -1,11 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "../../Components/Header/Header";
 import { BsPlus } from "react-icons/bs";
 import Days from "../../Components/Dates/Days";
 import MyTask from '../../Components/MyTask/MyTask';
 import Calender from "../../Components/Calendar/Calendar";
+import AddTask from '../../Components/AddTask/AddTask';
+import EditTask from '../../Components/EditTask/EditTask';
+import WireFrame from '../../Components/CreateWireFrame/WireFrame';
 
 const Home = () => {
+  const [ showCalender, setShowCalender ] = useState(false);
+  const [ showAddTask, setShowAddTask ] = useState(false);
+  const [ showEditTask, setEditTask ] = useState(false);
+  const [ showWireFrame, setWireFrame ] = useState(false)
+
+  useEffect(() => {
+
+  }, [])
+
+  const displayAddTask = () => {
+    setShowAddTask(true);
+  }
+
+  const displayEditTask = () => {
+    setEditTask(true);
+  }
+
+  const displayWireFrame = () => {
+    setWireFrame(true);
+    setShowAddTask(false)
+  }
+
+
   return (
     <div>
       <Header/>
@@ -15,15 +41,33 @@ const Home = () => {
             <h2 className='text-[30px] font-[600]'>Good Morning</h2>
             <p className='text-[16px] font-[400]'>You got some task to do.</p>
           </div>
-            <button className=" flex items-center bg-[blue] w-[165px] py-1 text-[white] rounded-md text-[14px] justify-center"> <BsPlus className="text-[25px]"/> Create new task</button>
+            <button className="flex items-center bg-[#3F5BF6] w-[165px] py-1 text-[white] rounded-md text-[14px] justify-center" onClick={displayAddTask}> <BsPlus className="text-[25px]"/> Create new task</button>
         </div>
         <div className='flex justify-between'>
           <div className='w-[67%] p-5 shadow-md'>
             <Days/>
-            <MyTask/>
+            <MyTask displayWireFrame={displayWireFrame}/>
           </div>
           <div className='w-[30%]'>
-            <Calender/>
+            {(() => {
+              if (showAddTask) {
+                  return (
+                    <AddTask/>
+                  )
+              } else if (showEditTask) {
+                  return (
+                    <EditTask/>
+                  )
+              } else if(showWireFrame) {
+                  return (
+                    <WireFrame displayEditTask={displayEditTask}/>
+                  )
+              } else {
+                return (
+                  <Calender/>
+                )
+              }
+            })()}
           </div>
         </div>
       </div>
