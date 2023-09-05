@@ -9,14 +9,14 @@ import EditTask from '../../Components/EditTask/EditTask';
 import WireFrame from '../../Components/CreateWireFrame/WireFrame';
 
 const Home = () => {
-  const [ showCalender, setShowCalender ] = useState(false);
   const [ showAddTask, setShowAddTask ] = useState(false);
   const [ showEditTask, setEditTask ] = useState(false);
   const [ showWireFrame, setWireFrame ] = useState(false)
+  const [ todoDataId, setTodoDataId ] = useState<number>(0)
 
-  useEffect(() => {
-
-  }, [])
+  const retriveId = (id: number) => {
+    setTodoDataId(id)
+  }
 
   const displayAddTask = () => {
     setShowAddTask(true);
@@ -60,7 +60,7 @@ const Home = () => {
         <div className='flex justify-between'>
           <div className='w-[67%] p-5 shadow-md'>
             <Days/>
-            <MyTask displayWireFrame={displayWireFrame}/>
+            <MyTask displayWireFrame={displayWireFrame} retriveId={retriveId}/>
           </div>
           <div className='w-[30%]'>
             {(() => {
@@ -74,7 +74,7 @@ const Home = () => {
                   )
               } else if(showWireFrame) {
                   return (
-                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame}/>
+                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame} todoDataId={todoDataId}/>
                   )
               } else {
                 return (
