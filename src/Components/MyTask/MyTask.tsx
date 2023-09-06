@@ -49,7 +49,7 @@ function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
   }
 
   return (
-    <div className='mt-[5%]'>
+    <div className='mt-[20%] sm:mt-[5%]'>
       <h1 className='font-[600] text-[16px]'>My Tasks</h1>
       <div>
         {records.length === 0 ? <h1 className='text-[30] text-[#3F5BF6] font-[900] text-center py-[10%]'>YOU DON'T HAVE ANY TASK</h1>

@@ -1,5 +1,5 @@
 interface scheduleDates{
-    id?:number,
+    id:number,
     day?:string
 }
 

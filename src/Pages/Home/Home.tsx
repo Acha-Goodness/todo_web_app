@@ -142,11 +142,11 @@ const Home = () => {
             <Days/>
             <MyTask todoData={todoData} displayWireFrame={displayWireFrame} retriveId={retriveId}/>
           </div>
-          <div className='sticky bottom-2 sm:hidden w-[100%] left-0'>
+          <div className='sticky bottom-0 sm:hidden w-[100%] left-0'>
             <BsMicFill className='relative left-[89%] bottom-[-40px] text-[150%] text-[#3F5BF6]' onClick={addNewTodo}/>
             <input type="text" value={newTodo} placeholder="Input Task" className='px-2 py-4 shadow-lg w-[97%] mx-1 rounded-md border-[lightgrey] border' onChange={(e) => setNewTodo(e.target.value)}/>
           </div>
-          <div className='sm:w-[30%] hidden sm:block'>
+          <div className='sm:w-[30%]'>
             {(() => {
               if (showAddTask) {
                   return (
