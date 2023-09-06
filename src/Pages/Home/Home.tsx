@@ -7,12 +7,92 @@ import Calender from "../../Components/Calendar/Calendar";
 import AddTask from '../../Components/AddTask/AddTask';
 import EditTask from '../../Components/EditTask/EditTask';
 import WireFrame from '../../Components/CreateWireFrame/WireFrame';
+import { nanoid } from 'nanoid'
+import Axios from 'axios';
+
+interface Todo {
+  id:number,
+  title:string,
+  userId:number,
+  completed:boolean
+}
+
 
 const Home = () => {
-  const [ showAddTask, setShowAddTask ] = useState(false);
-  const [ showEditTask, setEditTask ] = useState(false);
-  const [ showWireFrame, setWireFrame ] = useState(false)
-  const [ todoDataId, setTodoDataId ] = useState<number>(0)
+  const [ todoData, setTodoData ] = useState<Todo[]>([]);
+  const [ showAddTask, setShowAddTask ] = useState<boolean>(false);
+  const [ showEditTask, setEditTask ] = useState<boolean>(false);
+  const [ showWireFrame, setWireFrame ] = useState<boolean>(false);
+  const [ todoDataId, setTodoDataId ] = useState<number>(0);
+  const [ todoToEdit, setTodoToEdit ] = useState<string>("");
+  const [ editTodoId, setEditTodoId ] = useState<number>(0);
+
+  // useEffect(() => {
+  //   Axios.get("https://jsonplaceholder.typicode.com/todos")
+  //   .then(res => {
+  //     setTodoData(res.data)
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // },[])
+
+  const addNewTodo = (newTodo:string) => {
+    if (!newTodo.trim()) return;
+    Axios.post("https://jsonplaceholder.typicode.com/todos",  {
+      id:nanoid(),
+      title: newTodo,
+      userId:todoData.length,
+      completed: false,
+    })
+    .then(res => {
+      console.log(res)
+      if (res.status === 201) {
+        setTodoData([
+          ...todoData,
+          res.data
+        ]);
+        alert('Todo added successfully');
+      } else {
+        alert('Failed to add todo');
+      }
+    }).catch(err => {
+      alert(err)
+    })
+  }
+
+  const deleteTodo = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    Axios.delete(`https://jsonplaceholder.typicode.com/todos/${todoDataId}`)
+    .then(res => {
+      if (res.status === 200) {
+        setTodoData((prevTodos) => todoData.filter((todo) => todo.id !== todoDataId));
+      } else {
+        alert('Failed to delete todo');
+      }
+    }).catch(err => {
+      alert(err.message);
+    })
+  }
+
+  const saveEditedTodo = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    Axios.put(`https://jsonplaceholder.typicode.com/todos/${editTodoId}`, {title:todoToEdit})
+    .then((res) => {
+      if(res.status === 200){
+        console.log("Todo update successfully")
+        setTodoData((prevTodos) =>  
+          prevTodos.map((todo) => 
+            todo.id === editTodoId ? {...todo, title:todoToEdit } : todo
+          )
+        )
+        setTodoToEdit("");
+      }else{
+        alert("an error occur")
+      }
+    }).catch(err => {
+      alert(err.message)
+    })
+  }
 
   const retriveId = (id: number) => {
     setTodoDataId(id)
@@ -30,6 +110,9 @@ const Home = () => {
 
   const displayEditTask = () => {
     setEditTask(true);
+    let todo : any = todoData.find((todo) => todo.id === todoDataId)
+    setTodoToEdit(todo.title)
+    setEditTodoId(todo.id)
   }
 
   const closeEditTask = () => {
@@ -39,12 +122,12 @@ const Home = () => {
   const displayWireFrame = () => {
     setWireFrame(true);
     setShowAddTask(false)
+    setEditTask(false)
   }
 
   const closeWireFrame = () => {
     setWireFrame(false);
   }
-
 
   return (
     <div>
@@ -60,21 +143,21 @@ const Home = () => {
         <div className='flex justify-between'>
           <div className='w-[67%] p-5 shadow-md'>
             <Days/>
-            <MyTask displayWireFrame={displayWireFrame} retriveId={retriveId}/>
+            <MyTask todoData={todoData} displayWireFrame={displayWireFrame} retriveId={retriveId}/>
           </div>
           <div className='w-[30%]'>
             {(() => {
               if (showAddTask) {
                   return (
-                    <AddTask closeAddTask={closeAddTask}/>
+                    <AddTask closeAddTask={closeAddTask} addNewTodo={addNewTodo}/>
                   )
               } else if (showEditTask) {
                   return (
-                    <EditTask closeEditTask={closeEditTask}/>
+                    <EditTask closeEditTask={closeEditTask} todoToEdit={todoToEdit} saveEditedTodo={saveEditedTodo} setTodoToEdit={setTodoToEdit}/>
                   )
               } else if(showWireFrame) {
                   return (
-                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame} todoDataId={todoDataId}/>
+                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame} deleteTodo={deleteTodo}/>
                   )
               } else {
                 return (

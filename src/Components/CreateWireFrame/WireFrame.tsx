@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { MdClose, MdDateRange } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
-import { useDispatch } from 'react-redux';
-import { deleteTodo } from '../../Services/TodoSlice';
+import Axios from "axios";
 
 interface ButtonProps{
     displayEditTask: () => void;
     closeWireFrame: () => void;
-    todoDataId: number;
+    deleteTodo: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-const WireFrame = ({displayEditTask, closeWireFrame, todoDataId} : ButtonProps) => {
+const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) => {
 
-    const dispatch = useDispatch();
-
-    const handleDelete = () =>{
-        console.log("Delete working" + todoDataId)
-        dispatch(deleteTodo(todoDataId))
-    }
 
   return (
     <div className='shadow-md p-5'>
@@ -36,7 +29,7 @@ const WireFrame = ({displayEditTask, closeWireFrame, todoDataId} : ButtonProps) 
             </div>
         </div>
         <div className='mt-10'>
-            <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]' onClick={handleDelete}>Delete</button>
+            <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]' onClick={deleteTodo}>Delete</button>
             <button className='rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4' onClick={displayEditTask}>Edit</button>
         </div>
     </div>

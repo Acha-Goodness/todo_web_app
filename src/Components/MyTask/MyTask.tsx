@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Pagination from '../Pagination/Pagination';
-import { useAppSelector } from '../../Services/Store';
+
+interface Todo {
+  id:number,
+  title:string,
+  userId:number,
+  completed:boolean
+}
 
 interface ButtonsProps{
     displayWireFrame: () => void;
     retriveId: (id:number) => void;
+    todoData:Todo[]
   }
 
-function MyTask({displayWireFrame, retriveId,}: ButtonsProps) {
-  const todos = useAppSelector((state) => state.todo.todo);
+function MyTask({todoData, displayWireFrame, retriveId,}: ButtonsProps) {
+
 
   const [ currentPage, setCurrentPage ] = useState<number>(1)
   const recordsPerPage : number = 7;
   const lastIndex : number = currentPage * recordsPerPage;
   const firstIndex : number = lastIndex - recordsPerPage;
-  const records = todos.slice(firstIndex, lastIndex);
-  const nPage : number = Math.ceil(todos.length / 20);
+  const records = todoData.slice(firstIndex, lastIndex);
+  const nPage : number = Math.ceil(todoData.length / 20);
   const numbers : Array<number> = [...Array(nPage + 1).keys()].slice(1);
 
 
@@ -37,6 +44,7 @@ function MyTask({displayWireFrame, retriveId,}: ButtonsProps) {
 
 
   const comboFunc = (id:number) => {
+    console.log(id)
     retriveId(id)
     displayWireFrame();
   }
@@ -44,8 +52,9 @@ function MyTask({displayWireFrame, retriveId,}: ButtonsProps) {
   return (
     <div className='mt-[5%]'>
       <h1 className='font-[600] text-[16px]'>My Tasks</h1>
-      <div className='h-[100%]'>
-        {
+      <div>
+        {records.length === 0 ? <h1 className='text-[30] text-[#3F5BF6] font-[900] text-center'>YOU DON'T HAVE ANY TASK</h1>
+            :  
             records.map((item, index) => {
                 return(
                     <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7' onClick={() => comboFunc(item.id)}>
@@ -60,7 +69,7 @@ function MyTask({displayWireFrame, retriveId,}: ButtonsProps) {
                     </div>
                 )
             })
-        }
+      }
       </div> 
       <Pagination numbers={numbers} currentPage={currentPage} prePage={prePage} changeCPage={changeCPage} nextPage={nextPage}/>
     </div>

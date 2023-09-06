@@ -16,10 +16,10 @@ const Pagination = ({numbers, currentPage, prePage, changeCPage, nextPage}:Butto
             <FaArrowLeft/>
             <li onClick={prePage}><a href='#'>Previous</a></li>
         </div>
-        <div className='flex items-center w-[45%] items-center justify-center'>
+        <div className='flex items-center w-[75%] items-center justify-center'>
             {
                 numbers.map((n, i) => (
-                    <li key={i} className={`py-2 w-[25%] text-center ${currentPage === n ? "bg-[lightgrey] rounded-3xl" : "bg-[white]"}`} onClick={() => changeCPage(n)}>
+                    <li key={i} className={`py-2 w-[40px] text-center ${currentPage === n ? "bg-[lightgrey] rounded-3xl" : "bg-[white]"}`} onClick={() => changeCPage(n)}>
                         <a href='#'>{n}</a>
                     </li>
                 ))

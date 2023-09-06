@@ -1,22 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { MdClose, MdDateRange, MdNotificationsActive } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
-import { useAppDispatch } from '../../Services/Store';
-import { addTodo, addTodos } from "../../Services/TodoSlice";
 
 
 interface ButtonProps{
     closeAddTask: () => void;
+    addNewTodo: (newTodo:string) => void;
 }
 
-const AddTask = ({closeAddTask} : ButtonProps) => {
-    const todo = useRef<string>("");
-    const dispatch = useAppDispatch();
+const AddTask = ({closeAddTask, addNewTodo} : ButtonProps) => {
+  const [ newTodo, setNewTodo ] = useState<string>("");
 
-    const addTodoTask = () => {
-        dispatch(addTodos(todo.current))
-    }
-
+  const addTodoTask = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    addNewTodo(newTodo)
+    setNewTodo("")
+  }
 
   return (
     <div className='shadow-md p-5'>
@@ -25,7 +24,7 @@ const AddTask = ({closeAddTask} : ButtonProps) => {
         <MdClose onClick={closeAddTask}/>
     </div>
     <div className='mt-3'>
-        <textarea rows={3} placeholder='Enter About your description' className='w-[100%] p-1 bg-[#E6E8EB] rounded' onChange={(e) => (todo.current = e.target.value)}/>
+        <textarea rows={3} name="todo" value={newTodo} placeholder='Enter About your description' className='w-[100%] p-1 bg-[#E6E8EB] rounded' onChange={(e) => setNewTodo(e.target.value)}/>
         <div className='flex items-center justify-between mt-3'>
             <div className='flex items-center py-2 border border-[#E6E8EB] w-[27%] rounded-[8px] justify-evenly'><MdDateRange className='text-[20px]'/><p className='font-[600] text-[14px]'>Today</p></div>
             <div className='flex items-center py-2 border border-[#E6E8EB] w-[27%] rounded-[8px] justify-evenly'><BsClock className='text-[20px]'/><p className='font-[600] text-[14px]'>00:00</p></div>
