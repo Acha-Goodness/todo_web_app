@@ -48,5 +48,4 @@ export const dates : Array<scheduleDates> = [
         id:11,
         day:"Thur"
     },
-    
 ]

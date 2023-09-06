@@ -5,16 +5,17 @@ import { BsClock } from "react-icons/bs";
 
 interface ButtonProps{
     closeAddTask: () => void;
-    addNewTodo: (newTodo:string) => void;
+    addNewTodo: () => void;
+    newTodo: string;
+    setNewTodo: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AddTask = ({closeAddTask, addNewTodo} : ButtonProps) => {
-  const [ newTodo, setNewTodo ] = useState<string>("");
+const AddTask = ({closeAddTask, addNewTodo, newTodo, setNewTodo} : ButtonProps) => {
+  
 
   const addTodoTask = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    addNewTodo(newTodo)
-    setNewTodo("")
+    addNewTodo()
   }
 
   const cancelTodo = (e: React.MouseEvent<HTMLElement>) => {

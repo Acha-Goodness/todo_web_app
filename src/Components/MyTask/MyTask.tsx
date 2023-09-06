@@ -42,7 +42,6 @@ function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
     }
   }
 
-
   const comboFunc = (id:number) => {
     console.log(id)
     retriveId(id)
@@ -57,7 +56,7 @@ function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
             :  
             records.map((item, index) => {
                 return(
-                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7' onClick={() => comboFunc(item.userId)}>
+                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-2 sm:px-7' onClick={() => comboFunc(item.userId)}>
                         <div className='flex w-[80%] items-center'>
                         <input type="checkbox"/>
                         <div className='ml-[5%]'>
@@ -71,7 +70,9 @@ function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
             })
       }
       </div> 
-      <Pagination numbers={numbers} currentPage={currentPage} prePage={prePage} changeCPage={changeCPage} nextPage={nextPage}/>
+      <div className='hidden sm:block'>
+        <Pagination numbers={numbers} currentPage={currentPage} prePage={prePage} changeCPage={changeCPage} nextPage={nextPage}/>
+      </div>
     </div>
   )
 }

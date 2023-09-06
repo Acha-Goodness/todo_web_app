@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Header from "../../Components/Header/Header";
 import { BsPlus } from "react-icons/bs";
+import { BsMicFill } from "react-icons/bs";
 import Days from "../../Components/Dates/Days";
 import MyTask from '../../Components/MyTask/MyTask';
 import Calender from "../../Components/Calendar/Calendar";
 import AddTask from '../../Components/AddTask/AddTask';
 import EditTask from '../../Components/EditTask/EditTask';
 import WireFrame from '../../Components/CreateWireFrame/WireFrame';
-import { nanoid } from 'nanoid'
 import Axios from 'axios';
+
 
 interface Todo {
   id:number,
@@ -26,6 +27,7 @@ const Home = () => {
   const [ todoDataId, setTodoDataId ] = useState<number>(0);
   const [ todoToEdit, setTodoToEdit ] = useState<string>("");
   const [ editTodoId, setEditTodoId ] = useState<number>(0);
+  const [ newTodo, setNewTodo ] = useState<string>("");
 
   // useEffect(() => {
   //   Axios.get("https://jsonplaceholder.typicode.com/todos")
@@ -36,7 +38,7 @@ const Home = () => {
   //   })
   // },[])
 
-  const addNewTodo = (newTodo:string) => {
+  const addNewTodo = () => {
     if (!newTodo.trim()) return;
     Axios.post("https://jsonplaceholder.typicode.com/todos",  {
       id:todoData.length,
@@ -51,6 +53,7 @@ const Home = () => {
           ...todoData,
           res.data
         ]);
+        setNewTodo("");
       }
     }).catch(err => {
       alert(err)
@@ -126,24 +129,28 @@ const Home = () => {
   return (
     <div>
       <Header/>
-      <div className="px-[4%] pb-[3%]">
+      <div className="sm:px-[4%] pb-[3%]">
         <div className="flex items-center justify-between py-5">
-          <div>
+          <div className='px-2 sm:px-0'>
             <h2 className='text-[30px] font-[600]'>Good Morning</h2>
             <p className='text-[16px] font-[400]'>You got some task to do.</p>
           </div>
-            <button className="flex items-center bg-[#3F5BF6] w-[165px] py-1 text-[white] rounded-md text-[14px] justify-center" onClick={displayAddTask}> <BsPlus className="text-[25px]"/> Create new task</button>
+            <button className="hidden sm:flex items-center bg-[#3F5BF6] w-[165px] py-1 text-[white] rounded-md text-[14px] justify-center" onClick={displayAddTask}> <BsPlus className="text-[25px]"/> Create new task</button>
         </div>
-        <div className='flex justify-between'>
-          <div className='w-[67%] p-5 shadow-md'>
+        <div className='sm:flex justify-between'>
+          <div className='sm:w-[67%] p-2 sm:p-5 shadow-md'>
             <Days/>
             <MyTask todoData={todoData} displayWireFrame={displayWireFrame} retriveId={retriveId}/>
           </div>
-          <div className='w-[30%]'>
+          <div className='sticky bottom-2 sm:hidden w-[100%] left-0'>
+            <BsMicFill className='relative left-[89%] bottom-[-40px] text-[150%] text-[#3F5BF6]' onClick={addNewTodo}/>
+            <input type="text" value={newTodo} placeholder="Input Task" className='px-2 py-4 shadow-lg w-[97%] mx-1 rounded-md border-[lightgrey] border' onChange={(e) => setNewTodo(e.target.value)}/>
+          </div>
+          <div className='sm:w-[30%] hidden sm:block'>
             {(() => {
               if (showAddTask) {
                   return (
-                    <AddTask closeAddTask={closeAddTask} addNewTodo={addNewTodo}/>
+                    <AddTask closeAddTask={closeAddTask} addNewTodo={addNewTodo} newTodo={newTodo} setNewTodo={setNewTodo}/>
                   )
               } else if (showEditTask) {
                   return (
@@ -155,7 +162,7 @@ const Home = () => {
                   )
               } else {
                 return (
-                  <Calender/>
+                    <Calender/>
                 )
               }
             })()}
