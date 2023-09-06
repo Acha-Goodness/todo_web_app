@@ -18,7 +18,7 @@ const Header = () => {
       <div>
          <h3 className="text-[24px] font-medium">Todo</h3>
       </div>
-      <div className={`bg-[#3F5BF6] sm:bg-[white] text-[white] text-[30px] font-extrabold sm:text-[20px] font-bold sm:text-[black] py-4 sm:py-0 absolute left-0 duration-200 ease-in-out ${showNav ? "top-[15%]" : "top-[-30%] duration-100"} sm:static flex items-center w-[100%] sm:w-[10%] justify-evenly sm:justify-between`}>
+      <div className={`bg-[#3F5BF6] sm:bg-[white] text-[white] text-[30px] font-extrabold sm:text-[20px] font-bold sm:text-[black] py-4 sm:py-0 absolute left-0 duration-200 ease-in-out ${showNav ? "top-[14%]" : "top-[-30%] duration-100"} sm:static flex items-center w-[100%] sm:w-[10%] justify-evenly sm:justify-between`}>
         <GoGear/>
         <BsBell/>
         <img src={avatar} alt="..."/>

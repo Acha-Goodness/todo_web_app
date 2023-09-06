@@ -67,6 +67,7 @@ const Home = () => {
       
     }).then(() => {
       resetId()
+      todoData.length - 1 === 0 && displayAddTask();
     }).catch(err => {
       alert(err.message);
     })
@@ -74,7 +75,6 @@ const Home = () => {
 
   const saveEditedTodo = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    console.log("SAVE EDIT BUTTON IS WORKING")
     Axios.put(`https://jsonplaceholder.typicode.com/todos/${editTodoId}`, {title:todoToEdit})
     .then((res) => {
       if(res.status === 200){
@@ -99,9 +99,9 @@ const Home = () => {
     }
   }
 
-
   const displayAddTask = () => {
     setShowAddTask(true);
+    closeWireFrame();
   }
 
   const closeAddTask = () => {
@@ -111,12 +111,18 @@ const Home = () => {
   }
 
   const displayEditTask = () => {
-    if(todoDataId){
-        setEditTask(true);
-        let todo : any = todoData.find((todo) => todo.userId === todoDataId)
-        setTodoToEdit(todo.title)
-        setEditTodoId(todo.userId)
+    try{
+        if(todoDataId){
+          let todo : any = todoData.find((todo) => todo.userId === todoDataId)
+          setTodoToEdit(todo.title)
+          setEditTodoId(todo.userId)
+          setEditTask(true);
+        }
+    }catch(error:any){
+      console.error(error.message)
+      alert("Select Todo to edit")
     }
+    return null;
   }
 
   const closeEditTask = () => {

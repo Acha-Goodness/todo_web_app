@@ -11,6 +11,7 @@ interface ButtonProps{
 const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) => {
 
 
+
   return (
     <div className='shadow-md p-5'>
         <div className='flex justify-end'>

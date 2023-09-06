@@ -16,7 +16,7 @@ const Dates = () => {
         {
           dates.map((day, index)=> {
               return(
-                <div key={index} className={`flex mx-[4%] sm:mx-0 mt-2 sm:mt-0 w-[64px] h-[65px] flex-col items-center justify-center rounded-[8px] text-[black] shadow-md ${currentDay === day.id && "bg-[#3F5BF6] text-[white]"}`} onClick={() => toggleCurrentDay(day.id)}>
+                <div key={index} className={`flex mx-[4%] sm:mx-0 mt-2 sm:mt-0 w-[64px] h-[65px] flex-col items-center justify-center rounded-[8px] text-[black] shadow-md ${currentDay === day.id && "bg-[#3F5BF6] text-[white] duration-1000"}`} onClick={() => toggleCurrentDay(day.id)}>
                   <h4 className='text-[14px] font-[600]'>{day.day}</h4>
                   <p className='text-[14px] font-[600]'>{day.id}</p>
                 </div>
