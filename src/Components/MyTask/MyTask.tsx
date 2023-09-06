@@ -9,12 +9,11 @@ interface Todo {
 }
 
 interface ButtonsProps{
-    displayWireFrame: () => void;
-    retriveId: (id:number) => void;
     todoData:Todo[]
+    comboFunc:(id:number) => void;
   }
 
-function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
+function MyTask({todoData, comboFunc}: ButtonsProps) {
 
 
   const [ currentPage, setCurrentPage ] = useState<number>(1)
@@ -42,11 +41,10 @@ function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
     }
   }
 
-  const comboFunc = (id:number) => {
-    console.log(id)
-    retriveId(id)
-    displayWireFrame();
-  }
+  // const comboFunc = (id:number) => {
+  //     retriveId(id)
+  //     displayWireFrame();
+  // }
 
   return (
     <div className='mt-[20%] sm:mt-[5%]'>

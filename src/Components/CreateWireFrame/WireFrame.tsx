@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { MdClose, MdDateRange } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
-import Axios from "axios";
 
 interface ButtonProps{
     displayEditTask: () => void;

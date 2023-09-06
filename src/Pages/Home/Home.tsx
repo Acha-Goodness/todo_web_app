@@ -10,14 +10,12 @@ import EditTask from '../../Components/EditTask/EditTask';
 import WireFrame from '../../Components/CreateWireFrame/WireFrame';
 import Axios from 'axios';
 
-
 interface Todo {
   id:number,
   title:string,
   userId:number,
   completed:boolean
 }
-
 
 const Home = () => {
   const [ todoData, setTodoData ] = useState<Todo[]>([]);
@@ -47,7 +45,6 @@ const Home = () => {
       completed: false,
     })
     .then(res => {
-      console.log(res.data)
       if (res.status === 201) {
         setTodoData([
           ...todoData,
@@ -67,6 +64,9 @@ const Home = () => {
       if (res.status === 200) {
         setTodoData((prevTodos) => todoData.filter((todo) => todo.userId !== todoDataId));
       }
+      
+    }).then(() => {
+      resetId()
     }).catch(err => {
       alert(err.message);
     })
@@ -90,9 +90,15 @@ const Home = () => {
     })
   }
 
-  const retriveId = (id: number) => {
-    setTodoDataId(id)
+  const comboFunc = (id:number) => {
+    displayWireFrame();
+    if(id !== todoDataId){
+       setTodoDataId(id)
+    }else{
+       setTodoDataId(id + 1)
+    }
   }
+
 
   const displayAddTask = () => {
     setShowAddTask(true);
@@ -105,11 +111,12 @@ const Home = () => {
   }
 
   const displayEditTask = () => {
-    console.log(todoDataId)
-    setEditTask(true);
-    let todo : any = todoData.find((todo) => todo.userId === todoDataId)
-    setTodoToEdit(todo.title)
-    setEditTodoId(todo.userId)
+    if(todoDataId){
+        setEditTask(true);
+        let todo : any = todoData.find((todo) => todo.userId === todoDataId)
+        setTodoToEdit(todo.title)
+        setEditTodoId(todo.userId)
+    }
   }
 
   const closeEditTask = () => {
@@ -126,6 +133,12 @@ const Home = () => {
     setWireFrame(false);
   }
 
+  const resetId = () => {
+    const firstTodoIndex = todoData.findIndex(() => true)
+    let firstTodo = todoData.find((td) => todoData.indexOf(td) === firstTodoIndex )
+    firstTodo && comboFunc(firstTodo.userId)
+  }
+
   return (
     <div>
       <Header/>
@@ -140,7 +153,7 @@ const Home = () => {
         <div className='sm:flex justify-between'>
           <div className='sm:w-[67%] p-2 sm:p-5 shadow-md'>
             <Days/>
-            <MyTask todoData={todoData} displayWireFrame={displayWireFrame} retriveId={retriveId}/>
+            <MyTask todoData={todoData} comboFunc={comboFunc}/>
           </div>
           <div className='sticky bottom-0 sm:hidden w-[100%] left-0'>
             <BsMicFill className='relative left-[89%] bottom-[-40px] text-[150%] text-[#3F5BF6]' onClick={addNewTodo}/>
