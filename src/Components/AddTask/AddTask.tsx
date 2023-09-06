@@ -17,6 +17,11 @@ const AddTask = ({closeAddTask, addNewTodo} : ButtonProps) => {
     setNewTodo("")
   }
 
+  const cancelTodo = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setNewTodo("")
+  }
+
   return (
     <div className='shadow-md p-5'>
     <div className='flex items-center justify-between'>
@@ -39,7 +44,7 @@ const AddTask = ({closeAddTask, addNewTodo} : ButtonProps) => {
         </div>
     </div>
     <div className='mt-5'>
-        <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]'>Cancel</button>
+        <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]' onClick={cancelTodo}>Cancel</button>
         <button className='rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4' onClick={addTodoTask}>Add</button>
     </div>
 </div>

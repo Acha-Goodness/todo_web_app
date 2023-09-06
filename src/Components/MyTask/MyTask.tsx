@@ -14,7 +14,7 @@ interface ButtonsProps{
     todoData:Todo[]
   }
 
-function MyTask({todoData, displayWireFrame, retriveId,}: ButtonsProps) {
+function MyTask({todoData, displayWireFrame, retriveId}: ButtonsProps) {
 
 
   const [ currentPage, setCurrentPage ] = useState<number>(1)
@@ -53,11 +53,11 @@ function MyTask({todoData, displayWireFrame, retriveId,}: ButtonsProps) {
     <div className='mt-[5%]'>
       <h1 className='font-[600] text-[16px]'>My Tasks</h1>
       <div>
-        {records.length === 0 ? <h1 className='text-[30] text-[#3F5BF6] font-[900] text-center'>YOU DON'T HAVE ANY TASK</h1>
+        {records.length === 0 ? <h1 className='text-[30] text-[#3F5BF6] font-[900] text-center py-[10%]'>YOU DON'T HAVE ANY TASK</h1>
             :  
             records.map((item, index) => {
                 return(
-                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7' onClick={() => comboFunc(item.id)}>
+                    <div key={index} className='flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-7' onClick={() => comboFunc(item.userId)}>
                         <div className='flex w-[80%] items-center'>
                         <input type="checkbox"/>
                         <div className='ml-[5%]'>

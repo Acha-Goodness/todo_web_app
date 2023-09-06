@@ -39,21 +39,18 @@ const Home = () => {
   const addNewTodo = (newTodo:string) => {
     if (!newTodo.trim()) return;
     Axios.post("https://jsonplaceholder.typicode.com/todos",  {
-      id:nanoid(),
+      id:todoData.length,
       title: newTodo,
-      userId:todoData.length,
+      userId:todoData.length + 1,
       completed: false,
     })
     .then(res => {
-      console.log(res)
+      console.log(res.data)
       if (res.status === 201) {
         setTodoData([
           ...todoData,
           res.data
         ]);
-        alert('Todo added successfully');
-      } else {
-        alert('Failed to add todo');
       }
     }).catch(err => {
       alert(err)
@@ -65,9 +62,7 @@ const Home = () => {
     Axios.delete(`https://jsonplaceholder.typicode.com/todos/${todoDataId}`)
     .then(res => {
       if (res.status === 200) {
-        setTodoData((prevTodos) => todoData.filter((todo) => todo.id !== todoDataId));
-      } else {
-        alert('Failed to delete todo');
+        setTodoData((prevTodos) => todoData.filter((todo) => todo.userId !== todoDataId));
       }
     }).catch(err => {
       alert(err.message);
@@ -76,21 +71,19 @@ const Home = () => {
 
   const saveEditedTodo = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
+    console.log("SAVE EDIT BUTTON IS WORKING")
     Axios.put(`https://jsonplaceholder.typicode.com/todos/${editTodoId}`, {title:todoToEdit})
     .then((res) => {
       if(res.status === 200){
-        console.log("Todo update successfully")
         setTodoData((prevTodos) =>  
           prevTodos.map((todo) => 
-            todo.id === editTodoId ? {...todo, title:todoToEdit } : todo
+            todo.userId === editTodoId ? {...todo, title:todoToEdit } : todo
           )
         )
         setTodoToEdit("");
-      }else{
-        alert("an error occur")
       }
     }).catch(err => {
-      alert(err.message)
+      alert(err)
     })
   }
 
@@ -109,10 +102,11 @@ const Home = () => {
   }
 
   const displayEditTask = () => {
+    console.log(todoDataId)
     setEditTask(true);
-    let todo : any = todoData.find((todo) => todo.id === todoDataId)
+    let todo : any = todoData.find((todo) => todo.userId === todoDataId)
     setTodoToEdit(todo.title)
-    setEditTodoId(todo.id)
+    setEditTodoId(todo.userId)
   }
 
   const closeEditTask = () => {
