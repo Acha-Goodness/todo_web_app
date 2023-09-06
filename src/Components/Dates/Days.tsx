@@ -3,7 +3,7 @@ import { dates } from "../../Components/Dates/dates";
 
 
 const Dates = () => {
-  const [ currentDay, setCurrentDay ] = useState<number>(0);
+  const [ currentDay, setCurrentDay ] = useState<number>(1);
 
   const toggleCurrentDay = (id:number) => {
     setCurrentDay(id)
