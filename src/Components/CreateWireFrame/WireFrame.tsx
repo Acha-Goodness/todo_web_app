@@ -13,9 +13,20 @@ interface ButtonProps{
     displayEditTask: () => void;
     closeWireFrame: () => void;
     deleteTodo: (e: React.MouseEvent<HTMLElement>) => void;
+    completeTodoId: number;
+    todoData:Todo[];
+    count:number;
 }
 
-const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) => {
+const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo, completeTodoId, todoData, count} : ButtonProps) => {
+    const [ completedTodox, setCompletedTodox ] = useState<Todo>()
+
+
+    useEffect(() => {
+        let todox = todoData.find(tdx => tdx.userId === completeTodoId)
+        setCompletedTodox(todox);
+    }, [completeTodoId, count])
+
 
   return (
     <div className='shadow-md p-5'>
@@ -35,7 +46,7 @@ const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) 
         </div>
         <div className='mt-10'>
             <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]' onClick={deleteTodo}>Delete</button>
-            <button className={`rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4`} onClick={displayEditTask}>Edit</button>
+            <button disabled={completedTodox?.completed} className={`rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4 ${completedTodox?.completed && "opacity-50"}`} onClick={displayEditTask}>Edit</button>
         </div>
     </div>
   )

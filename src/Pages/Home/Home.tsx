@@ -18,6 +18,7 @@ interface Todo {
 };
 
 const Home = () => {
+  const [ count, setCount ] = useState<number>(0);
   const [ todoData, setTodoData ] = useState<Todo[]>([]);
   const [ showAddTask, setShowAddTask ] = useState<boolean>(false);
   const [ showEditTask, setEditTask ] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const Home = () => {
   const [ todoToEdit, setTodoToEdit ] = useState<string>("");
   const [ editTodoId, setEditTodoId ] = useState<number>(0);
   const [ newTodo, setNewTodo ] = useState<string>("");
+  const [ completeTodoId, setCompleteTodoId ] = useState<number>(0);
 
   // useEffect(() => {
   //   Axios.get("https://jsonplaceholder.typicode.com/todos")
@@ -91,10 +93,12 @@ const Home = () => {
   };
 
   const markCompleted = (id:number) => {
+      setCount(count + 1)
       const updateTodos : any = todoData.map((tdo) => 
         tdo.userId === id ? {...tdo, completed: !tdo.completed } : tdo
       );
       setTodoData(updateTodos)
+      setCompleteTodoId(id)
   }
 
   const comboFunc = (id:number) => {
@@ -184,7 +188,7 @@ const Home = () => {
                   )
               } else if(showWireFrame) {
                   return (
-                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame} deleteTodo={deleteTodo}/>
+                    <WireFrame displayEditTask={displayEditTask} closeWireFrame={closeWireFrame} deleteTodo={deleteTodo} completeTodoId={completeTodoId} todoData={todoData} count={count}/>
                   )
               } else {
                 return (
