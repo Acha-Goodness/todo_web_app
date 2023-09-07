@@ -24,6 +24,7 @@ const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo, completeTodoId,
 
     useEffect(() => {
         let todox = todoData.find(tdx => tdx.userId === completeTodoId)
+        console.log(todox)
         setCompletedTodox(todox);
     }, [completeTodoId, count])
 
@@ -31,7 +32,7 @@ const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo, completeTodoId,
   return (
     <div className='shadow-md p-5'>
         <div className='flex justify-end'>
-            <MdClose onClick={closeWireFrame}/>
+            <MdClose className='hover:cursor-pointer' onClick={closeWireFrame}/>
         </div>
         <div>
             <h1 className='font-[700] text-[18px] py-3'>Create Wireframe</h1>

@@ -19,7 +19,7 @@ const EditTask = ({ closeEditTask, todoToEdit, saveEditedTodo, setTodoToEdit } :
     <div className='shadow-md p-5'>
         <div className='flex items-center justify-between'>
             <h3 className='font-[600] text-[18px]'>Edit Task</h3>
-            <MdClose onClick={closeEditTask}/>
+            <MdClose className='hover:cursor-pointer' onClick={closeEditTask}/>
         </div>
         <div className='mt-3'>
             <textarea rows={3} value={todoToEdit} placeholder='Create wireframe' className='w-[100%] p-1 bg-[#E6E8EB] rounded' onChange={e => setTodoToEdit(e.target.value)}/>

@@ -54,7 +54,7 @@ function MyTask({todoData, comboFunc, markCompleted}: ButtonsProps) {
             :  
             records.map((item, index) => {
                 return(
-                    <div key={index} className={`flex justify-between bg-[#F2F2F2] mt-3 py-3 items-center px-2 sm:px-7 ${item.completed && "opacity-50"}`} onClick={() => comboFunc(item.userId)}>
+                    <div key={index} className={`flex justify-between bg-[#F2F2F2] mt-3 py-3 hover:cursor-pointer items-center px-2 sm:px-7 ${item.completed && "opacity-50"}`} onClick={() => comboFunc(item.userId)}>
                         <div className='flex w-[80%] items-center'>
                         <input type="checkbox" onChange={() => markCompleted(item.userId)}/>
                         <div className='ml-[5%]'>

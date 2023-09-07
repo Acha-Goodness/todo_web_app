@@ -27,7 +27,7 @@ const AddTask = ({closeAddTask, addNewTodo, newTodo, setNewTodo} : ButtonProps) 
     <div className='shadow-md p-5'>
     <div className='flex items-center justify-between'>
         <h3 className='font-[600] text-[18px]'>Add Task</h3>
-        <MdClose onClick={closeAddTask}/>
+        <MdClose className='hover:cursor-pointer' onClick={closeAddTask}/>
     </div>
     <div className='mt-3'>
         <textarea rows={3} name="todo" value={newTodo} placeholder='Enter About your description' className='w-[100%] p-1 bg-[#E6E8EB] rounded' onChange={(e) => setNewTodo(e.target.value)}/>
