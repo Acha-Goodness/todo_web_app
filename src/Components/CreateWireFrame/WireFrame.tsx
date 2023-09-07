@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MdClose, MdDateRange } from "react-icons/md";
 import { BsClock } from "react-icons/bs";
+
+interface Todo {
+    id:number,
+    title:string,
+    userId:number,
+    completed:boolean;
+  }
 
 interface ButtonProps{
     displayEditTask: () => void;
@@ -9,8 +16,6 @@ interface ButtonProps{
 }
 
 const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) => {
-
-
 
   return (
     <div className='shadow-md p-5'>
@@ -30,7 +35,7 @@ const WireFrame = ({displayEditTask, closeWireFrame, deleteTodo} : ButtonProps) 
         </div>
         <div className='mt-10'>
             <button className='rounded-md py-1 px-[15%] w-162.5px border border-[lightgrey] font-[600] text-[16px]' onClick={deleteTodo}>Delete</button>
-            <button className='rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4' onClick={displayEditTask}>Edit</button>
+            <button className={`rounded-md py-1 px-[15%] w-162.5px border border-[#3F5BF6] font-[600] text-[16px] bg-[#3F5BF6] text-white ml-4`} onClick={displayEditTask}>Edit</button>
         </div>
     </div>
   )

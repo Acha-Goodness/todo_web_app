@@ -6,8 +6,8 @@ interface ButtonProps {
     changeCPage: (id : number) => any;
     nextPage: () => void;
     currentPage: number;
-    numbers: number[]
-  }
+    numbers: number[];
+  };
 
 const Pagination = ({numbers, currentPage, prePage, changeCPage, nextPage}:ButtonProps) => {
   return (

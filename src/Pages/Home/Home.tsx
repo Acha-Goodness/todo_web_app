@@ -14,8 +14,8 @@ interface Todo {
   id:number,
   title:string,
   userId:number,
-  completed:boolean
-}
+  completed:boolean;
+};
 
 const Home = () => {
   const [ todoData, setTodoData ] = useState<Todo[]>([]);
@@ -88,6 +88,13 @@ const Home = () => {
     }).catch(err => {
       alert(err)
     })
+  };
+
+  const markCompleted = (id:number) => {
+      const updateTodos : any = todoData.map((tdo) => 
+        tdo.userId === id ? {...tdo, completed: !tdo.completed } : tdo
+      );
+      setTodoData(updateTodos)
   }
 
   const comboFunc = (id:number) => {
@@ -97,30 +104,30 @@ const Home = () => {
     }else{
        setTodoDataId(id + 1)
     }
-  }
+  };
 
   const displayAddTask = () => {
     setShowAddTask(true);
     closeWireFrame();
-  }
+  };
 
   const closeAddTask = () => {
     setShowAddTask(false);
     setEditTask(false);
     setWireFrame(false);
-  }
+  };
 
   const displayEditTask = () => {
     try{
         if(todoDataId){
-          let todo : any = todoData.find((todo) => todo.userId === todoDataId)
-          setTodoToEdit(todo.title)
-          setEditTodoId(todo.userId)
+          let todo : any = todoData.find((todo) => todo.userId === todoDataId);
+          setTodoToEdit(todo.title);
+          setEditTodoId(todo.userId);
           setEditTask(true);
         }
     }catch(error:any){
-      console.error(error.message)
-      alert("Select Todo to edit")
+      console.error(error.message);
+      alert("Select Todo to edit");
     }
     return null;
   }
@@ -131,19 +138,19 @@ const Home = () => {
 
   const displayWireFrame = () => {
     setWireFrame(true);
-    setShowAddTask(false)
-    setEditTask(false)
-  }
+    setShowAddTask(false);
+    setEditTask(false);
+  };
 
   const closeWireFrame = () => {
     setWireFrame(false);
-  }
+  };
 
   const resetId = () => {
-    const firstTodoIndex = todoData.findIndex(() => true)
-    let firstTodo = todoData.find((td) => todoData.indexOf(td) === firstTodoIndex )
-    firstTodo && comboFunc(firstTodo.userId)
-  }
+    const firstTodoIndex = todoData.findIndex(() => true);
+    let firstTodo = todoData.find((td) => todoData.indexOf(td) === firstTodoIndex);
+    firstTodo && comboFunc(firstTodo.userId);
+  };
 
   return (
     <div>
@@ -159,7 +166,7 @@ const Home = () => {
         <div className='sm:flex justify-between'>
           <div className='sm:w-[67%] p-2 sm:p-5 shadow-md'>
             <Days/>
-            <MyTask todoData={todoData} comboFunc={comboFunc}/>
+            <MyTask todoData={todoData} comboFunc={comboFunc} markCompleted={markCompleted}/>
           </div>
           <div className='sticky bottom-0 sm:hidden w-[100%] left-0'>
             <BsMicFill className='relative left-[89%] bottom-[-40px] text-[150%] text-[#3F5BF6]' onClick={addNewTodo}/>
@@ -192,4 +199,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

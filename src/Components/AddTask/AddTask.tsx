@@ -7,7 +7,7 @@ interface ButtonProps{
     closeAddTask: () => void;
     addNewTodo: () => void;
     newTodo: string;
-    setNewTodo: React.Dispatch<React.SetStateAction<string>>
+    setNewTodo: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AddTask = ({closeAddTask, addNewTodo, newTodo, setNewTodo} : ButtonProps) => {
@@ -15,13 +15,13 @@ const AddTask = ({closeAddTask, addNewTodo, newTodo, setNewTodo} : ButtonProps) 
 
   const addTodoTask = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    addNewTodo()
-  }
+    addNewTodo();
+  };
 
   const cancelTodo = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    setNewTodo("")
-  }
+    setNewTodo("");
+  };
 
   return (
     <div className='shadow-md p-5'>

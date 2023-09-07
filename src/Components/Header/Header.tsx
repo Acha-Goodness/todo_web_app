@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import { GoGear } from "react-icons/go";
 import { BsBell } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import avatar from "../../assets/Avatar.png"
+import avatar from "../../assets/Avatar.png";
 
 
 const Header = () => {
-  const [ showNav, setShowNav ] = useState<boolean>(false)
+  const [ showNav, setShowNav ] = useState<boolean>(false);
 
   const toggleShowNav = () => {
-    setShowNav(!showNav)
-  }
+    setShowNav(!showNav);
+  };
 
 
   return (

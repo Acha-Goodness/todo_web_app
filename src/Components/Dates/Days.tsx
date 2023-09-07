@@ -6,8 +6,8 @@ const Dates = () => {
   const [ currentDay, setCurrentDay ] = useState<number>(1);
 
   const toggleCurrentDay = (id:number) => {
-    setCurrentDay(id)
-  }
+    setCurrentDay(id);
+  };
 
   return (
     <div>

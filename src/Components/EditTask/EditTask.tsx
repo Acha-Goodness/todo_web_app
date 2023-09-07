@@ -5,7 +5,7 @@ import { BsClock } from "react-icons/bs";
 interface ButtonProps{
     closeEditTask: () => void;
     todoToEdit: string;
-    setTodoToEdit: React.Dispatch<React.SetStateAction<string>>
+    setTodoToEdit: React.Dispatch<React.SetStateAction<string>>;
     saveEditedTodo: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
@@ -13,7 +13,7 @@ const EditTask = ({ closeEditTask, todoToEdit, saveEditedTodo, setTodoToEdit } :
 
   const cancelEdit = () => {
     setTodoToEdit("");
-  }
+  };
 
   return (
     <div className='shadow-md p-5'>
